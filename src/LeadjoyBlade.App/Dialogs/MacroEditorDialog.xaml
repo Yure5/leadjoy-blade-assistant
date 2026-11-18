@@ -1,0 +1,200 @@
+<Window x:Class="LeadjoyBlade.App.Dialogs.MacroEditorDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="编辑宏" Width="640" SizeToContent="Height" MaxHeight="820"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        ResizeMode="NoResize" WindowStartupLocation="CenterOwner" ShowInTaskbar="False"
+        PreviewKeyDown="Window_OnPreviewKeyDown" PreviewMouseDown="Window_OnPreviewMouseDown">
+    <Border Background="{DynamicResource Surface}" BorderBrush="{DynamicResource Border}" BorderThickness="1" CornerRadius="14">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0" Background="{DynamicResource Surface2}" CornerRadius="14,14,0,0" Padding="18,14"
+                    MouseLeftButtonDown="Title_OnMouseDown">
+                <Grid>
+                    <TextBlock Text="编辑宏" FontSize="15" FontWeight="SemiBold" />
+                    <Button Content="✕" Style="{StaticResource IconButton}" HorizontalAlignment="Right" Click="Cancel_OnClick" />
+                </Grid>
+            </Border>
+
+            <StackPanel Grid.Row="1" Margin="20,16">
+                <Grid Margin="0,0,0,12">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="90" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="名称" Foreground="{DynamicResource TextMuted}" VerticalAlignment="Center" />
+                    <TextBox x:Name="NameBox" Grid.Column="1" />
+                </Grid>
+                <TextBlock x:Name="TextSummaryText" Text="" Visibility="Collapsed"
+                           Foreground="{DynamicResource TextMuted}" FontSize="11" MaxWidth="520"
+                           HorizontalAlignment="Left" TextTrimming="CharacterEllipsis" Margin="90,0,0,10" />
+                <Grid x:Name="TriggerRow" Margin="0,0,0,12" Visibility="Collapsed">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="90" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="触发按键" Foreground="{DynamicResource TextMuted}" VerticalAlignment="Center" />
+                    <ComboBox x:Name="TriggerCombo" Grid.Column="1" />
+                </Grid>
+
+                <Grid Margin="0,4,0,8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="78" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="92" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <ComboBox x:Name="DeviceCombo" SelectionChanged="DeviceCombo_OnSelectionChanged" />
+                    <ComboBox x:Name="SourceCombo" Grid.Column="1" Margin="8,0,0,0" />
+                    <ComboBox x:Name="ActionCombo" Grid.Column="2" Margin="8,0,0,0" />
+                    <Button Content="添加步骤" Grid.Column="3" Style="{StaticResource PrimaryButton}"
+                            Padding="12,5" Margin="8,0,0,0" Click="AddComposedStep_OnClick" />
+                </Grid>
+
+                <WrapPanel Margin="0,0,0,10">
+                    <Button x:Name="RecordButton" Content="● 开始录制" Style="{StaticResource BtnBase}" Padding="12,5" Click="Record_OnClick" />
+                    <Button Content="添加延迟" Style="{StaticResource BtnBase}" Padding="10,5" Margin="6,0,0,0" Click="AddDelay_OnClick" />
+                    <Button Content="添加文本" Style="{StaticResource BtnBase}" Padding="10,5" Margin="6,0,0,0" Click="AddText_OnClick" />
+                    <Button Content="捕获按键" Style="{StaticResource BtnBase}" Padding="10,5" Margin="6,0,0,0" Click="Capture_OnClick" />
+                    <Button Content="删除步骤" Style="{StaticResource BtnBase}" Padding="10,5" Margin="6,0,0,0"
+                            Foreground="{DynamicResource TextMuted}" Click="DeleteStep_OnClick" />
+                </WrapPanel>
+
+                <StackPanel x:Name="MousePositionRow" Orientation="Horizontal" Margin="0,6,0,8" Visibility="Collapsed">
+                    <Button x:Name="MousePositionButton" Content="设置鼠标位置" Style="{StaticResource BtnBase}"
+                            Padding="10,5" Click="PickMousePosition_OnClick" />
+                    <TextBlock x:Name="MousePositionText" Text="" Style="{StaticResource Muted}" FontSize="10"
+                               VerticalAlignment="Center" Margin="8,0,0,0" />
+                </StackPanel>
+
+                <Border Background="{DynamicResource Surface2}" BorderBrush="{DynamicResource Border}" BorderThickness="1"
+                        CornerRadius="8" Padding="6">
+                    <StackPanel>
+                    <Grid Height="22" Margin="0,0,0,2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30" />
+                            <ColumnDefinition Width="48" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="64" />
+                            <ColumnDefinition Width="64" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="#" FontSize="10" Foreground="{DynamicResource TextMuted}" />
+                        <TextBlock Grid.Column="1" Text="类型" FontSize="10" Foreground="{DynamicResource TextMuted}" />
+                        <TextBlock Grid.Column="2" Text="按键" FontSize="10" Foreground="{DynamicResource TextMuted}" />
+                        <TextBlock Grid.Column="3" Text="按住(ms)" FontSize="10" Foreground="{DynamicResource TextMuted}" />
+                        <TextBlock Grid.Column="4" Text="间隔(ms)" FontSize="10" Foreground="{DynamicResource TextMuted}" />
+                    </Grid>
+                    <ListBox x:Name="StepsList" Height="206" Background="Transparent" BorderThickness="0"
+                             SelectionMode="Extended"
+                             SelectionChanged="StepsList_OnSelectionChanged"
+                             MouseDoubleClick="StepsList_OnMouseDoubleClick"
+                             AllowDrop="True" Drop="StepsList_OnDrop" DragOver="StepsList_OnDragOver"
+                             PreviewMouseLeftButtonDown="StepsList_OnPreviewMouseLeftButtonDown"
+                             PreviewMouseLeftButtonUp="StepsList_OnPreviewMouseLeftButtonUp"
+                             PreviewMouseMove="StepsList_OnPreviewMouseMove">
+                        <ListBox.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="剪切 (Ctrl+X)" Click="Cut_OnClick" />
+                                <MenuItem Header="复制 (Ctrl+C)" Click="Copy_OnClick" />
+                                <MenuItem Header="粘贴到下方 (Ctrl+V)" Click="Paste_OnClick" />
+                                <Separator />
+                                <MenuItem Header="删除选中步骤 (Delete)" Click="DeleteStep_OnClick" />
+                            </ContextMenu>
+                        </ListBox.ContextMenu>
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="ListBoxItem">
+                                            <Border x:Name="Root" Background="Transparent" BorderBrush="Transparent"
+                                                    BorderThickness="1" CornerRadius="6" Padding="4,1" Margin="0,1">
+                                                <ContentPresenter />
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="Root" Property="Background" Value="{DynamicResource Surface2}" />
+                                                </Trigger>
+                                                <Trigger Property="IsSelected" Value="True">
+                                                    <Setter TargetName="Root" Property="Background" Value="{DynamicResource SelectionTint}" />
+                                                    <Setter TargetName="Root" Property="BorderBrush" Value="{DynamicResource Accent}" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Height="34">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="30" />
+                                        <ColumnDefinition Width="48" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="64" />
+                                        <ColumnDefinition Width="64" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                                        <TextBlock Text="☰" Tag="DragHandle" Cursor="SizeAll" Margin="0,0,4,0"
+                                                   Foreground="{DynamicResource TextMuted}" />
+                                        <TextBlock Text="{Binding Index}" Style="{StaticResource Muted}" />
+                                    </StackPanel>
+                                    <TextBlock Grid.Column="1" Text="{Binding KindText}" VerticalAlignment="Center" FontSize="11" />
+                                    <Grid Grid.Column="2" Margin="0,0,6,0">
+                                        <Button Content="{Binding KeyName}" Click="CaptureStepKey_OnClick"
+                                                IsEnabled="{Binding EditableKey}" HorizontalAlignment="Left"
+                                                Padding="8,2" FontSize="11" Style="{StaticResource BtnBase}"
+                                                Visibility="{Binding ShowKey, Converter={StaticResource BoolVis}}"
+                                                ToolTip="点击后按新键" />
+                                        <StackPanel Orientation="Horizontal"
+                                                    Visibility="{Binding IsDelay, Converter={StaticResource BoolVis}}">
+                                            <TextBlock Text="等待" VerticalAlignment="Center" FontSize="11" Margin="0,0,4,0" />
+                                            <TextBox Text="{Binding DelayMs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                     Width="52" FontSize="11" VerticalContentAlignment="Center" />
+                                            <TextBlock Text="ms" VerticalAlignment="Center" FontSize="11" Margin="4,0,0,0" />
+                                        </StackPanel>
+                                        <TextBlock Text="{Binding KeyName}" VerticalAlignment="Center" FontSize="11"
+                                                   Foreground="{DynamicResource TextMuted}"
+                                                   Visibility="{Binding ShowSource, Converter={StaticResource BoolVis}}"
+                                                   TextTrimming="CharacterEllipsis" />
+                                        <TextBlock Text="{Binding TextContent}" VerticalAlignment="Center" FontSize="11"
+                                                   Foreground="{DynamicResource TextMuted}"
+                                                   Visibility="{Binding IsText, Converter={StaticResource BoolVis}}"
+                                                   TextTrimming="CharacterEllipsis"
+                                                   ToolTip="{Binding TextContent}" />
+                                    </Grid>
+                                    <TextBox Grid.Column="3" Text="{Binding HoldMs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                             FontSize="11" Margin="0,0,6,0" VerticalContentAlignment="Center" ToolTip="按住毫秒"
+                                             Visibility="{Binding ShowHold, Converter={StaticResource BoolVis}}" />
+                                    <TextBox Grid.Column="4" Text="{Binding DelayMs, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                             FontSize="11" VerticalContentAlignment="Center" ToolTip="间隔毫秒"
+                                             Visibility="{Binding ShowGap, Converter={StaticResource BoolVis}}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    </StackPanel>
+                </Border>
+                <TextBlock x:Name="HintText" Text="按开始录制后直接敲键盘，Esc 停止；也可以手动添加步骤。"
+                           Style="{StaticResource Muted}" FontSize="11" Margin="0,8,0,0" TextWrapping="Wrap" />
+            </StackPanel>
+
+            <Border Grid.Row="2" BorderBrush="{DynamicResource Border}" BorderThickness="0,1,0,0" Padding="18,12">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="取消" Style="{StaticResource SecondaryButton}" Padding="18,7" Click="Cancel_OnClick" />
+                    <Button Content="保存" Style="{StaticResource PrimaryButton}" Padding="18,7" Margin="8,0,0,0" Click="Save_OnClick" />
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Border>
+</Window>
+
+
+
+
+

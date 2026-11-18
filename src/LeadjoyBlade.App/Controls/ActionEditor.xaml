@@ -1,0 +1,208 @@
+<UserControl x:Class="LeadjoyBlade.App.Controls.ActionEditor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Focusable="True" PreviewKeyDown="OnPreviewKeyDown">
+    <StackPanel>
+        <Grid Margin="0,0,0,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="90" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="动作类型" Foreground="{DynamicResource TextMuted}" VerticalAlignment="Center" />
+            <ComboBox x:Name="TypeCombo" Grid.Column="1" SelectionChanged="TypeCombo_OnSelectionChanged">
+                <ComboBoxItem Content="键盘按键" Tag="Key" />
+                <ComboBoxItem Content="输入文本" Tag="Text" />
+                <ComboBoxItem Content="鼠标按键" Tag="MouseButton" />
+                <ComboBoxItem Content="鼠标滚轮" Tag="MouseWheel" />
+                <ComboBoxItem Content="宏" Tag="Macro" />
+                <ComboBoxItem Content="不映射" Tag="Disabled" />
+            </ComboBox>
+        </Grid>
+
+        <!-- 键盘 -->
+        <StackPanel x:Name="KeyPanel">
+            <Grid Margin="0,0,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="90" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="按键" Foreground="{DynamicResource TextMuted}" VerticalAlignment="Center" />
+                <Border Grid.Column="1" Background="{DynamicResource Surface}" BorderBrush="{DynamicResource Border}" BorderThickness="1"
+                        CornerRadius="8" Padding="10,8">
+                    <TextBlock x:Name="KeyText" Text="Space" />
+                </Border>
+                <Button Grid.Column="2" Content="捕获按键" Style="{StaticResource BtnBase}" Margin="8,0,0,0"
+                        Click="CaptureKey_OnClick" />
+            </Grid>
+            <Grid Margin="0,0,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="90" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="修饰键" Foreground="{DynamicResource TextMuted}" VerticalAlignment="Center" />
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <CheckBox x:Name="CtrlCheck" Content="Ctrl" Margin="0,0,14,0" />
+                    <CheckBox x:Name="AltCheck" Content="Alt" Margin="0,0,14,0" />
+                    <CheckBox x:Name="ShiftCheck" Content="Shift" Margin="0,0,14,0" />
+                    <CheckBox x:Name="WinCheck" Content="Win" />
+                </StackPanel>
+            </Grid>
+            <StackPanel Orientation="Horizontal" Margin="90,0,0,4">
+                <CheckBox x:Name="TurboCheck" Content="按住连发" Margin="0,0,18,0" />
+                <CheckBox x:Name="ToggleCheck" Content="按一下切换（开/关）" />
+            </StackPanel>
+            <Grid Margin="90,6,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="70" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="连发间隔" Style="{StaticResource Muted}" VerticalAlignment="Center" Margin="0,0,8,0" />
+                <TextBox x:Name="TurboIntervalBox" Grid.Column="1" Text="50" />
+                <TextBlock Grid.Column="2" Text="毫秒" Style="{StaticResource Muted}" VerticalAlignment="Center" Margin="8,0,0,0" />
+            </Grid>
+        </StackPanel>
+
+        <!-- 文本 -->
+        <StackPanel x:Name="TextPanel" Visibility="Collapsed">
+            <TextBlock Text="要输入的文本（支持中文）" Foreground="{DynamicResource TextMuted}" Margin="0,0,0,6" />
+            <TextBox x:Name="TextBox" Height="80" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" />
+        </StackPanel>
+
+        <!-- 鼠标 -->
+        <StackPanel x:Name="MousePanel" Visibility="Collapsed">
+            <StackPanel x:Name="MouseButtonPanel">
+                <TextBlock Text="鼠标按键" Foreground="{DynamicResource TextMuted}" Margin="0,0,0,6" />
+                <ComboBox x:Name="MouseButtonCombo">
+                    <ComboBoxItem Content="左键" Tag="Left" />
+                    <ComboBoxItem Content="右键" Tag="Right" />
+                    <ComboBoxItem Content="中键" Tag="Middle" />
+                    <ComboBoxItem Content="侧键 1" Tag="X1" />
+                    <ComboBoxItem Content="侧键 2" Tag="X2" />
+                </ComboBox>
+            </StackPanel>
+            <StackPanel x:Name="WheelPanel" Visibility="Collapsed">
+                <TextBlock Text="滚轮方向" Foreground="{DynamicResource TextMuted}" Margin="0,0,0,6" />
+                <ComboBox x:Name="WheelCombo">
+                    <ComboBoxItem Content="向上滚动" Tag="120" />
+                    <ComboBoxItem Content="向下滚动" Tag="-120" />
+                </ComboBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                <Button x:Name="MousePositionButton" Content="设置鼠标位置" Style="{StaticResource BtnBase}"
+                        Padding="10,5" Click="PickMousePosition_OnClick" />
+                <TextBlock x:Name="MousePositionText" Text="" Style="{StaticResource Muted}" FontSize="10"
+                           VerticalAlignment="Center" Margin="8,0,0,0" />
+            </StackPanel>
+        </StackPanel>
+
+        <!-- 宏 -->
+        <StackPanel x:Name="MacroPanel" Visibility="Collapsed">
+            <TextBlock Text="宏列表" Foreground="{DynamicResource TextMuted}" Margin="0,0,0,6" />
+            <Border Background="{DynamicResource Surface}" BorderBrush="{DynamicResource Border}" BorderThickness="1" CornerRadius="8" Padding="4">
+                <ListBox x:Name="MacroSelectList" Height="120" Background="Transparent" BorderThickness="0"
+                         Padding="0" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                         ScrollViewer.VerticalScrollBarVisibility="Auto"
+                         SelectionChanged="MacroSelectList_OnSelectionChanged"
+                         MouseDoubleClick="MacroSelectList_OnMouseDoubleClick">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel />
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Margin" Value="0,0,6,6" />
+                            <Setter Property="Padding" Value="10,6" />
+                            <Setter Property="Width" Value="120" />
+                            <Setter Property="Background" Value="{DynamicResource Surface2}" />
+                            <Setter Property="BorderBrush" Value="{DynamicResource Border}" />
+                            <Setter Property="BorderThickness" Value="1" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListBoxItem">
+                                        <Border Background="{TemplateBinding Background}"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}"
+                                                CornerRadius="5" Padding="{TemplateBinding Padding}"
+                                                SnapsToDevicePixels="True">
+                                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" />
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="BorderBrush" Value="{DynamicResource Accent}" />
+                                </Trigger>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="BorderBrush" Value="{DynamicResource Accent}" />
+                                    <Setter Property="FontWeight" Value="SemiBold" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Name}" FontSize="12.5" FontWeight="SemiBold"
+                                           MaxWidth="98" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
+                                <TextBlock Text="{Binding StepsText}" FontSize="10"
+                                           Foreground="{DynamicResource TextMuted}" Margin="0,1,0,0"
+                                           MaxWidth="98" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Border>
+            <Button Content="编辑所选宏" Style="{StaticResource BtnBase}" Padding="10,5"
+                    HorizontalAlignment="Left" Margin="0,8,0,0" Click="EditMacro_OnClick" />
+            <TextBlock x:Name="MacroEmptyText" Text="宏库为空，请先到“宏”页面创建宏。"
+                       Foreground="{DynamicResource TextMuted}" FontSize="11" Margin="0,6,0,0"
+                       Visibility="Collapsed" />
+            <Grid Visibility="Collapsed">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <ComboBox x:Name="MacroSelectCombo" SelectionChanged="MacroSelect_OnSelectionChanged"
+                          DisplayMemberPath="Display" />
+                <Button Grid.Column="1" Content="编辑所选宏" Style="{StaticResource BtnBase}"
+                        Padding="10,5" Margin="6,0,0,0" Click="EditMacro_OnClick" />
+            </Grid>
+            <TextBlock Text="宏步骤预览（只读）" Foreground="{DynamicResource TextMuted}" Margin="0,10,0,6" Visibility="Collapsed" />
+            <Border Background="{DynamicResource Surface}" BorderBrush="{DynamicResource Border}" BorderThickness="1" CornerRadius="8" Padding="4" Visibility="Collapsed">
+                <ListBox x:Name="MacroList" Height="150" SelectionChanged="MacroList_OnSelectionChanged">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Summary}" FontSize="12" />
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Border>
+            <StackPanel x:Name="MacroStepButtons" Orientation="Horizontal" Margin="0,8,0,0" Visibility="Collapsed">
+                <Button Content="＋ 按键" Style="{StaticResource BtnBase}" Padding="10,5" Click="AddMacroKey_OnClick" />
+                <Button Content="＋ 延迟" Style="{StaticResource BtnBase}" Padding="10,5" Margin="6,0,0,0" Click="AddMacroDelay_OnClick" />
+                <Button Content="＋ 鼠标" Style="{StaticResource BtnBase}" Padding="10,5" Margin="6,0,0,0" Click="AddMacroMouse_OnClick" />
+                <Button Content="删除" Style="{StaticResource BtnBase}" Padding="10,5" Margin="6,0,0,0" Click="DeleteMacroStep_OnClick" />
+            </StackPanel>
+            <Grid x:Name="MacroStepEditor" Margin="0,10,0,0" Visibility="Collapsed">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="60" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="60" />
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="MacroStepLabel" Text="步骤" Foreground="{DynamicResource TextMuted}" VerticalAlignment="Center" Margin="0,0,8,0" />
+                <Button x:Name="MacroKeyButton" Grid.Column="1" Content="捕获按键" Style="{StaticResource BtnBase}" Click="MacroCapture_OnClick" />
+                <TextBlock Grid.Column="2" Text="按住" Style="{StaticResource Muted}" VerticalAlignment="Center" Margin="8,0,4,0" />
+                <TextBox x:Name="MacroHoldBox" Grid.Column="3" Text="30" />
+                <TextBlock Grid.Column="4" Text="间隔" Style="{StaticResource Muted}" VerticalAlignment="Center" Margin="8,0,4,0" />
+                <TextBox x:Name="MacroDelayBox" Grid.Column="5" Text="30" />
+            </Grid>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

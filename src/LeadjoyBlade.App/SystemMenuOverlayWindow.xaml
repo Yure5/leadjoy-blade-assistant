@@ -1,0 +1,121 @@
+﻿<Window x:Class="LeadjoyBlade.App.SystemMenuOverlayWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="系统菜单" Width="1280" Height="640"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        ShowInTaskbar="False" Topmost="True" ResizeMode="NoResize"
+        WindowStartupLocation="Manual" ShowActivated="False" Focusable="False">
+    <Window.Resources>
+        <DropShadowEffect x:Key="HeaderShadow" BlurRadius="6" ShadowDepth="1" Direction="270"
+                          Opacity="0.85" Color="#000000" />
+    </Window.Resources>
+    <Grid x:Name="Root" Background="Transparent" IsHitTestVisible="False">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!-- 顶部标题与操作提示：标题下移压到黑色阴影上，层级高于菜单主体 -->
+        <Grid Grid.Row="0" Margin="0,9,18,0" Panel.ZIndex="10">
+            <StackPanel x:Name="TitleGroup" Orientation="Horizontal" HorizontalAlignment="Center">
+                <StackPanel.RenderTransform>
+                    <TranslateTransform Y="20" />
+                </StackPanel.RenderTransform>
+                <Path Data="M12,2 L22,12 L12,22 L2,12 Z" Fill="#C8A46A" Width="14" Height="14"
+                      Stretch="Uniform" VerticalAlignment="Center" Margin="0,0,7,0" />
+                <TextBlock x:Name="TitleText" Text="系统菜单" FontSize="12" FontWeight="SemiBold"
+                           Foreground="#F6E7C8" VerticalAlignment="Center"
+                           Effect="{StaticResource HeaderShadow}" />
+            </StackPanel>
+            <TextBlock x:Name="HintText" Text="" FontSize="9.5" Foreground="#AFC0D2"
+                       HorizontalAlignment="Right" VerticalAlignment="Center"
+                       Effect="{StaticResource HeaderShadow}" />
+        </Grid>
+
+        <!-- 菜单主体：项目列表在蓝条后面，滚动时穿过半透明蓝条 -->
+        <Grid Grid.Row="1" x:Name="MenuBody">
+            <!-- 一整块黑色阴影，垫在蓝条下层；向下延伸更长 -->
+            <Border x:Name="ShadowBorder" VerticalAlignment="Top" Height="520" Margin="0,-24,0,0"
+                    Panel.ZIndex="0" IsHitTestVisible="False">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="#00000000" Offset="0" />
+                        <GradientStop Color="#0A000000" Offset="0.015" />
+                        <GradientStop Color="#1A000000" Offset="0.030" />
+                        <GradientStop Color="#2E000000" Offset="0.045" />
+                        <GradientStop Color="#47000000" Offset="0.060" />
+                        <GradientStop Color="#63000000" Offset="0.075" />
+                        <GradientStop Color="#7E000000" Offset="0.090" />
+                        <GradientStop Color="#96000000" Offset="0.105" />
+                        <GradientStop Color="#A2000000" Offset="0.120" />
+                        <GradientStop Color="#A6000000" Offset="0.142" />
+                        <GradientStop Color="#A6000000" Offset="0.292" />
+                        <GradientStop Color="#94000000" Offset="0.36" />
+                        <GradientStop Color="#7C000000" Offset="0.44" />
+                        <GradientStop Color="#63000000" Offset="0.52" />
+                        <GradientStop Color="#4A000000" Offset="0.60" />
+                        <GradientStop Color="#33000000" Offset="0.68" />
+                        <GradientStop Color="#1F000000" Offset="0.76" />
+                        <GradientStop Color="#10000000" Offset="0.84" />
+                        <GradientStop Color="#06000000" Offset="0.92" />
+                        <GradientStop Color="#00000000" Offset="1" />
+                    </LinearGradientBrush>
+                </Border.Background>
+            </Border>
+
+            <!-- 项目栏：两组容器 A/B 交替，切换菜单栏时旧组淡出、新组淡入（时间重叠） -->
+            <Grid x:Name="ItemsRoot" Panel.ZIndex="2" IsHitTestVisible="False">
+                <Grid x:Name="ItemsGroupA" IsHitTestVisible="False">
+                    <Canvas x:Name="SelectionLayerA" IsHitTestVisible="False" />
+                    <Grid x:Name="ItemsMaskHostA" ClipToBounds="True" Background="Transparent">
+                        <Canvas x:Name="ItemsLayerA" ClipToBounds="True">
+                            <Grid x:Name="ItemsHostA" Canvas.Left="0" Canvas.Top="103" Width="250" Height="0">
+                                <Canvas x:Name="ItemsCanvasA" Width="250" Height="0" />
+                            </Grid>
+                        </Canvas>
+                    </Grid>
+                </Grid>
+                <Grid x:Name="ItemsGroupB" IsHitTestVisible="False" Opacity="0">
+                    <Canvas x:Name="SelectionLayerB" IsHitTestVisible="False" />
+                    <Grid x:Name="ItemsMaskHostB" ClipToBounds="True" Background="Transparent">
+                        <Canvas x:Name="ItemsLayerB" ClipToBounds="True">
+                            <Grid x:Name="ItemsHostB" Canvas.Left="0" Canvas.Top="103" Width="250" Height="0">
+                                <Canvas x:Name="ItemsCanvasB" Width="250" Height="0" />
+                            </Grid>
+                        </Canvas>
+                    </Grid>
+                </Grid>
+            </Grid>
+
+            <!-- 蓝色横条：统一底色，只把上下边缘用透明度遮罩柔化 -->
+            <Grid VerticalAlignment="Top" Height="78" Margin="0,50,0,0" Panel.ZIndex="3">
+                <Border BorderBrush="Transparent" BorderThickness="0">
+                    <Border.Background>
+                        <SolidColorBrush Color="#CC0A2B48" />
+                    </Border.Background>
+                    <Border.OpacityMask>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Color="#00FFFFFF" Offset="0" />
+                            <GradientStop Color="#FFFFFFFF" Offset="0.25" />
+                            <GradientStop Color="#FFFFFFFF" Offset="0.75" />
+                            <GradientStop Color="#00FFFFFF" Offset="1" />
+                        </LinearGradientBrush>
+                    </Border.OpacityMask>
+                </Border>
+                <ScrollViewer x:Name="TabScroll" HorizontalScrollBarVisibility="Hidden"
+                              VerticalScrollBarVisibility="Disabled">
+                    <StackPanel x:Name="TabPanel" Orientation="Horizontal" HorizontalAlignment="Center"
+                                VerticalAlignment="Center" Margin="18,0" />
+                </ScrollViewer>
+            </Grid>
+
+            <TextBlock x:Name="EmptyText" Text="" FontSize="11.5" Foreground="#AFC0D2"
+                       HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,114,0,0"
+                       Panel.ZIndex="5" Visibility="Collapsed" />
+        </Grid>
+    </Grid>
+</Window>
+
+
+
+

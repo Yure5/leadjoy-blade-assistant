@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    柄输 Binput 2.5.0 —— 由莫古雨开发 (https://github.com/moguyu-binput/Binput, GPL-3.0)。
+    这里把它的源码整体编进风刃手柄助手，作为一个独立的 WPF 类库：
+      · 不依赖系统另装 .NET 8 桌面运行时（跟随主程序 self-contained 发布）；
+      · 不引用任何 NuGet 包（DPAPI 改为 P/Invoke crypt32）；
+      · dict.txt / skin / sponsor / 图标全部内嵌为程序集资源，单文件发布不漏文件。
+  -->
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <LangVersion>latest</LangVersion>
+    <Platforms>x64</Platforms>
+    <PlatformTarget>x64</PlatformTarget>
+    <AssemblyName>LeadjoyBlade.Binput</AssemblyName>
+    <RootNamespace>LeadjoyBlade.Binput</RootNamespace>
+    <EnableDefaultApplicationDefinition>false</EnableDefaultApplicationDefinition>
+    <NoWarn>$(NoWarn);CS0162;CS0168;CS0169;CS0414;CS0649;CS8632</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Using Remove="System.Drawing" />
+    <Using Remove="System.Windows.Forms" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Binput.ico" />
+    <Resource Include="sponsor.png" />
+    <Resource Include="dict.txt" />
+    <Resource Include="skin\*.png" />
+    <None Remove="Binput.ico" />
+    <None Remove="sponsor.png" />
+    <None Remove="dict.txt" />
+    <None Remove="skin\*.png" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,260 @@
+<Window x:Class="LeadjoyBlade.App.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
+        mc:Ignorable="d"
+        Title="风刃手柄助手"
+        Height="720" Width="1220" MinHeight="560" MinWidth="760"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None" ResizeMode="CanResize"
+        Background="{DynamicResource Bg}"
+        Icon="pack://application:,,,/LeadjoyBlade;component/Assets/app_icon.png"
+        FontFamily="{StaticResource AppFont}">
+    <shell:WindowChrome.WindowChrome>
+        <shell:WindowChrome CaptionHeight="46" ResizeBorderThickness="6" CornerRadius="0" GlassFrameThickness="0" />
+    </shell:WindowChrome.WindowChrome>
+    <Window.Resources>
+        <Geometry x:Key="BladeDots">M7.11,0.01 a1.40,1.40 0 1 0 2.80,0 a1.40,1.40 0 1 0 -2.80,0 M10.62,0.00 a1.40,1.40 0 1 0 2.80,0 a1.40,1.40 0 1 0 -2.80,0 M7.11,3.44 a1.40,1.40 0 1 0 2.80,0 a1.40,1.40 0 1 0 -2.80,0 M10.62,3.44 a1.40,1.40 0 1 0 2.80,0 a1.40,1.40 0 1 0 -2.80,0 M17.61,3.44 a1.40,1.40 0 1 0 2.80,0 a1.40,1.40 0 1 0 -2.80,0 M14.10,6.73 a1.40,1.40 0 1 0 2.80,0 a1.40,1.40 0 1 0 -2.80,0 M17.61,6.73 a1.40,1.40 0 1 0 2.80,0 a1.40,1.40 0 1 0 -2.80,0 M21.11,6.73 a1.40,1.40 0 1 0 2.80,0 a1.40,1.40 0 1 0 -2.80,0 M0.07,6.86 a1.40,1.40 0 1 0 2.80,0 a1.40,1.40 0 1 0 -2.80,0 M3.59,6.86 a1.40,1.40 0 1 0 2.80,0 a1.40,1.40 0 1 0 -2.80,0 M0.07,10.28 a1.40,1.40 0 1 0 2.80,0 a1.40,1.40 0 1 0 -2.80,0 M3.67,10.29 a1.40,1.40 0 1 0 2.80,0 a1.40,1.40 0 1 0 -2.80,0 M10.61,10.21 a1.40,1.40 0 1 0 2.80,0 a1.40,1.40 0 1 0 -2.80,0 M14.10,10.21 a1.40,1.40 0 1 0 2.80,0 a1.40,1.40 0 1 0 -2.80,0 M17.62,10.21 a1.40,1.40 0 1 0 2.80,0 a1.40,1.40 0 1 0 -2.80,0 M21.11,10.21 a1.40,1.40 0 1 0 2.80,0 a1.40,1.40 0 1 0 -2.80,0 M7.13,13.66 a1.40,1.40 0 1 0 2.80,0 a1.40,1.40 0 1 0 -2.80,0 M10.64,13.65 a1.40,1.40 0 1 0 2.80,0 a1.40,1.40 0 1 0 -2.80,0 M14.12,13.65 a1.40,1.40 0 1 0 2.80,0 a1.40,1.40 0 1 0 -2.80,0 M17.62,13.65 a1.40,1.40 0 1 0 2.80,0 a1.40,1.40 0 1 0 -2.80,0 M21.13,13.69 a1.40,1.40 0 1 0 2.80,0 a1.40,1.40 0 1 0 -2.80,0 M3.60,17.07 a1.40,1.40 0 1 0 2.80,0 a1.40,1.40 0 1 0 -2.80,0 M7.11,17.07 a1.40,1.40 0 1 0 2.80,0 a1.40,1.40 0 1 0 -2.80,0 M10.63,17.08 a1.40,1.40 0 1 0 2.80,0 a1.40,1.40 0 1 0 -2.80,0 M14.12,17.07 a1.40,1.40 0 1 0 2.80,0 a1.40,1.40 0 1 0 -2.80,0 M17.62,17.06 a1.40,1.40 0 1 0 2.80,0 a1.40,1.40 0 1 0 -2.80,0 M0.09,20.49 a1.40,1.40 0 1 0 2.80,0 a1.40,1.40 0 1 0 -2.80,0 M3.60,20.48 a1.40,1.40 0 1 0 2.80,0 a1.40,1.40 0 1 0 -2.80,0 M7.12,20.48 a1.40,1.40 0 1 0 2.80,0 a1.40,1.40 0 1 0 -2.80,0 M10.64,20.48 a1.40,1.40 0 1 0 2.80,0 a1.40,1.40 0 1 0 -2.80,0 M14.12,20.48 a1.40,1.40 0 1 0 2.80,0 a1.40,1.40 0 1 0 -2.80,0 M7.09,23.89 a1.40,1.40 0 1 0 2.80,0 a1.40,1.40 0 1 0 -2.80,0 M10.57,23.90 a1.40,1.40 0 1 0 2.80,0 a1.40,1.40 0 1 0 -2.80,0 M3.60,24.00 a1.40,1.40 0 1 0 2.80,0 a1.40,1.40 0 1 0 -2.80,0</Geometry>
+    </Window.Resources>
+
+    <Grid Background="{DynamicResource Bg}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="46" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="30" />
+        </Grid.RowDefinitions>
+
+        <!-- 标题栏 -->
+        <Border Grid.Row="0" Background="{DynamicResource Bg}" BorderBrush="{DynamicResource Border}" BorderThickness="0,0,0,1">
+            <Grid Margin="16,0,8,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Border Width="26" Height="26" CornerRadius="7" Background="#570F8C">
+                        <Border.Clip>
+                            <RectangleGeometry Rect="0,0,26,26" RadiusX="7" RadiusY="7" />
+                        </Border.Clip>
+                        <Viewbox Margin="5">
+                            <Path Data="{StaticResource BladeDots}" Fill="White" Stretch="Uniform" />
+                        </Viewbox>
+                    </Border>
+                    <TextBlock Text="风刃手柄助手" FontSize="14" FontWeight="SemiBold" Margin="10,0,0,0" VerticalAlignment="Center" />
+                    <Border x:Name="BrandBadge" Background="#241B1F" CornerRadius="4" Padding="6,2" Margin="10,0,0,0" VerticalAlignment="Center">
+                        <TextBlock Text="BLADE PLUS" FontSize="9" Foreground="White" FontWeight="SemiBold" />
+                    </Border>
+                </StackPanel>
+
+                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center"
+                            shell:WindowChrome.IsHitTestVisibleInChrome="True">
+                    <TextBlock x:Name="ProfileLabel" Text="配置" Foreground="{DynamicResource TextMuted}" VerticalAlignment="Center" Margin="0,0,8,0" FontSize="12" />
+                    <ComboBox x:Name="ProfileCombo" Width="150" Height="30" SelectionChanged="ProfileCombo_OnSelectionChanged" />
+                    <Border Width="1" Height="18" Background="{DynamicResource Border}" Margin="14,0" />
+                    <TextBlock x:Name="EnableLabel" Text="映射开启" Foreground="{DynamicResource TextMuted}" VerticalAlignment="Center"
+                               Margin="0,0,8,0" FontSize="12" />
+                    <ToggleButton x:Name="EnableSwitch" Style="{StaticResource Switch}" IsChecked="True"
+                                  Checked="EnableSwitch_OnChanged" Unchecked="EnableSwitch_OnChanged" />
+                    <Border Width="1" Height="18" Background="{DynamicResource Border}" Margin="14,0" />
+                    <Button x:Name="ThemeButton" Style="{StaticResource ThemeSwitch}"
+                            Click="Theme_OnClick" ToolTip="切换浅色 / 深色" Margin="0,0,6,0">
+                        <Grid Width="16" Height="16">
+                            <Path x:Name="MoonIcon" Width="14" Height="14" Stretch="Uniform"
+                                  HorizontalAlignment="Center" VerticalAlignment="Center"
+                                  Fill="{DynamicResource TextMuted}"
+                                  Data="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" />
+                            <Path x:Name="SunIcon" Width="16" Height="16" Stretch="Uniform"
+                                  HorizontalAlignment="Center" VerticalAlignment="Center"
+                                  Fill="{DynamicResource TextMuted}" Visibility="Collapsed"
+                                  Data="M6.76 4.84l-1.8-1.79-1.41 1.41 1.79 1.79 1.42-1.41zM4 10.5H1v2h3v-2zm9-9.95h-2V3.5h2V.55zm7.45 3.91l-1.41-1.41-1.79 1.79 1.41 1.41 1.79-1.79zm-3.21 13.7l1.79 1.8 1.41-1.41-1.8-1.79-1.4 1.4zM20 10.5v2h3v-2h-3zm-8-5c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm-1 16.95h2V19.5h-2v2.95zm-7.45-3.91l1.41 1.41 1.79-1.8-1.41-1.41-1.79 1.8z" />
+                        </Grid>
+                    </Button>
+                    <Button Style="{StaticResource IconButton}" Click="Minimize_OnClick" ToolTip="最小化">
+                        <Viewbox Width="12" Height="12"><Path Data="M4 11h16v2H4z" Fill="{DynamicResource TextMuted}" /></Viewbox>
+                    </Button>
+                    <Button x:Name="MaxButton" Style="{StaticResource IconButton}" Click="Maximize_OnClick" ToolTip="最大化">
+                        <Viewbox Width="12" Height="12">
+                            <Path Data="M4 4h16v16H4z" Fill="Transparent" Stroke="{DynamicResource TextMuted}" StrokeThickness="1.6" />
+                        </Viewbox>
+                    </Button>
+                    <Button Style="{StaticResource IconButton}" Click="Close_OnClick" ToolTip="关闭到托盘">
+                        <Viewbox Width="12" Height="12">
+                            <Path Data="M5 5l14 14 M19 5L5 19" Stroke="{DynamicResource TextMuted}" StrokeThickness="1.6" />
+                        </Viewbox>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- 主体 -->
+        <Grid x:Name="MainGrid" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="SidebarColumn" Width="218" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Border x:Name="Sidebar" Grid.Column="0" Background="{DynamicResource Bg}" BorderBrush="{DynamicResource Border}" BorderThickness="0,0,1,0">
+                <Grid Margin="14,16,14,12">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel>
+                        <TextBlock Text="工作台" Style="{StaticResource Muted}" Margin="10,0,0,6" />
+                        <ToggleButton x:Name="NavDevice" Style="{StaticResource NavButton}" Tag="M7 6h10a4 4 0 0 1 4 4v4a4 4 0 0 1-4 4h-2l-2-2h-4l-2 2H7a4 4 0 0 1-4-4v-4a4 4 0 0 1 4-4z M8 9.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z M16 9.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z" Content="连接与测试" IsChecked="True"
+                                      Click="Nav_OnClick" Checked="Nav_OnChecked" />
+                        <ToggleButton x:Name="NavMapping" Style="{StaticResource NavButton}" Tag="M5 5 H19 A2 2 0 0 1 21 7 V17 A2 2 0 0 1 19 19 H5 A2 2 0 0 1 3 17 V7 A2 2 0 0 1 5 5 Z M11 8 H13 V11 H15 L12 14 L9 11 H11 Z" Content="按键映射"
+                                      Click="Nav_OnClick" Checked="Nav_OnChecked" />
+                        <ToggleButton x:Name="NavChords" Style="{StaticResource NavButton}" Tag="M9 6a6 6 0 0 0 0 12h2v-3H9a3 3 0 0 1 0-6h2V6z M15 6a6 6 0 0 1 0 12h-2v-3h2a3 3 0 0 0 0-6h-2V6z" Content="组合键"
+                                      Click="Nav_OnClick" Checked="Nav_OnChecked" />
+                        <ToggleButton x:Name="NavMacro" Style="{StaticResource NavButton}" Tag="M3 6h18v12H3z M5 9h2v2H5z M9 9h2v2H9z M13 9h2v2h-2z M17 9h2v2h-2z M5 13h2v2H5z M9 13h2v2H9z M13 13h6v2h-6z" Content="宏"
+                                      Click="Nav_OnClick" Checked="Nav_OnChecked" />
+                        <ToggleButton x:Name="NavFantasy" Style="{StaticResource FantasyNavButton}" Content="幻想模式"
+                                      Click="Nav_OnClick" Checked="Nav_OnChecked" />
+                        <ToggleButton x:Name="NavIme" Style="{StaticResource NavButton}" Tag="M4 4h7v7H4z M13 4h7v7h-7z M4 13h7v7H4z M13 13h7v7h-7z" Content="手柄输入法"
+                                      Click="Nav_OnClick" Checked="Nav_OnChecked" />
+                        <ToggleButton x:Name="NavSettings" Style="{StaticResource NavButton}" Tag="M19.14 12.94c0.04 -0.3 0.06 -0.61 0.06 -0.94c0 -0.32 -0.02 -0.64 -0.07 -0.94l2.03 -1.58c0.18 -0.14 0.23 -0.41 0.12 -0.61l-1.92 -3.32c-0.12 -0.22 -0.37 -0.29 -0.61 -0.22l-2.39 0.96c-0.5 -0.38 -1.03 -0.7 -1.62 -0.94L14.4 2.81c-0.04 -0.24 -0.24 -0.41 -0.48 -0.41h-3.84c-0.24 0 -0.43 0.17 -0.47 0.41L9.25 5.35C8.66 5.59 8.12 5.92 7.63 6.29L5.24 5.33c-0.22 -0.08 -0.47 0 -0.59 0.22L2.74 8.87c-0.12 0.21 -0.08 0.47 0.12 0.61l2.03 1.58C4.84 11.36 4.8 11.69 4.8 12s0.02 0.64 0.07 0.94l-2.03 1.58c-0.18 0.14 -0.23 0.41 -0.12 0.61l1.92 3.32c0.12 0.22 0.37 0.29 0.61 0.22l2.39 -0.96c0.5 0.38 1.03 0.7 1.62 0.94l0.36 2.54c0.05 0.24 0.24 0.41 0.48 0.41h3.84c0.24 0 0.44 -0.17 0.47 -0.41l0.36 -2.54c0.59 -0.24 1.13 -0.56 1.62 -0.94l2.39 0.96c0.22 0.08 0.47 0 0.59 -0.22l1.92 -3.32c0.12 -0.22 0.07 -0.47 -0.12 -0.61L19.14 12.94zM12 15.6c-1.98 0 -3.6 -1.62 -3.6 -3.6s1.62 -3.6 3.6 -3.6s3.6 1.62 3.6 3.6S13.98 15.6 12 15.6z" Content="设置"
+                                      Click="Nav_OnClick" Checked="Nav_OnChecked" />
+                        <ToggleButton x:Name="NavDiagnostics" Style="{StaticResource NavButton}" Tag="M3 3h12l3 3v12H3z M5 8h11v1.4H5z M5 11.5h11v1.4H5z M5 15h8v1.4H5z" Content="诊断日志"
+                                      Click="Nav_OnClick" Checked="Nav_OnChecked" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="2">
+                        <Border Background="{DynamicResource Surface}" CornerRadius="10" Padding="12" BorderBrush="{DynamicResource Border}" BorderThickness="1">
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <Ellipse x:Name="SideStatusDot" Width="8" Height="8" Fill="#4A5266" VerticalAlignment="Center" />
+                                    <TextBlock x:Name="SideStatusText" Text="未连接" Margin="8,0,0,0" FontSize="12" VerticalAlignment="Center" />
+                                </StackPanel>
+                                <TextBlock x:Name="SideDeviceText" Text="等待手柄…" Style="{StaticResource Muted}"
+                                           Margin="0,6,0,0" TextTrimming="CharacterEllipsis" />
+                            </StackPanel>
+                        </Border>
+                        <TextBlock Text="V0.8.80 风刃Plus专用" Style="{StaticResource Muted}" Margin="4,12,0,0" FontSize="10" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Border x:Name="TopNav" Grid.Row="0" Visibility="Collapsed" Background="{DynamicResource Bg}"
+                        BorderBrush="{DynamicResource Border}" BorderThickness="0,0,0,1" Padding="8,6">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal">
+                            <ToggleButton x:Name="TopNavDevice" Style="{StaticResource NavButton}" Content="连接与测试"
+                                          Tag="M7 6h10a4 4 0 0 1 4 4v4a4 4 0 0 1-4 4h-2l-2-2h-4l-2 2H7a4 4 0 0 1-4-4v-4a4 4 0 0 1 4-4z M8 9.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z M16 9.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z" CommandParameter="device" IsChecked="True" Click="Nav_OnClick" Checked="TopNav_OnChecked" />
+                            <ToggleButton x:Name="TopNavMapping" Style="{StaticResource NavButton}" Content="按键映射"
+                                          Tag="M5 5 H19 A2 2 0 0 1 21 7 V17 A2 2 0 0 1 19 19 H5 A2 2 0 0 1 3 17 V7 A2 2 0 0 1 5 5 Z M11 8 H13 V11 H15 L12 14 L9 11 H11 Z" CommandParameter="mapping" Click="Nav_OnClick" Checked="TopNav_OnChecked" />
+                            <ToggleButton x:Name="TopNavChords" Style="{StaticResource NavButton}" Content="组合键"
+                                          Tag="M9 6a6 6 0 0 0 0 12h2v-3H9a3 3 0 0 1 0-6h2V6z M15 6a6 6 0 0 1 0 12h-2v-3h2a3 3 0 0 0 0-6h-2V6z" CommandParameter="chords" Click="Nav_OnClick" Checked="TopNav_OnChecked" />
+                            <ToggleButton x:Name="TopNavMacro" Style="{StaticResource NavButton}" Content="宏"
+                                          Tag="M3 6h18v12H3z M5 9h2v2H5z M9 9h2v2H9z M13 9h2v2h-2z M17 9h2v2h-2z M5 13h2v2H5z M9 13h2v2H9z M13 13h6v2h-6z" CommandParameter="macro" Click="Nav_OnClick" Checked="TopNav_OnChecked" />
+                            <ToggleButton x:Name="TopNavFantasy" Style="{StaticResource FantasyNavButton}" Content="幻想模式"
+                                          CommandParameter="fantasy" Click="Nav_OnClick" Checked="TopNav_OnChecked" />
+                            <ToggleButton x:Name="TopNavIme" Style="{StaticResource NavButton}" Content="手柄输入法"
+                                          Tag="M4 4h7v7H4z M13 4h7v7h-7z M4 13h7v7H4z M13 13h7v7h-7z" CommandParameter="ime" Click="Nav_OnClick" Checked="TopNav_OnChecked" />
+                            <ToggleButton x:Name="TopNavSettings" Style="{StaticResource NavButton}" Content="设置"
+                                          Tag="M19.14 12.94c0.04 -0.3 0.06 -0.61 0.06 -0.94c0 -0.32 -0.02 -0.64 -0.07 -0.94l2.03 -1.58c0.18 -0.14 0.23 -0.41 0.12 -0.61l-1.92 -3.32c-0.12 -0.22 -0.37 -0.29 -0.61 -0.22l-2.39 0.96c-0.5 -0.38 -1.03 -0.7 -1.62 -0.94L14.4 2.81c-0.04 -0.24 -0.24 -0.41 -0.48 -0.41h-3.84c-0.24 0 -0.43 0.17 -0.47 0.41L9.25 5.35C8.66 5.59 8.12 5.92 7.63 6.29L5.24 5.33c-0.22 -0.08 -0.47 0 -0.59 0.22L2.74 8.87c-0.12 0.21 -0.08 0.47 0.12 0.61l2.03 1.58C4.84 11.36 4.8 11.69 4.8 12s0.02 0.64 0.07 0.94l-2.03 1.58c-0.18 0.14 -0.23 0.41 -0.12 0.61l1.92 3.32c0.12 0.22 0.37 0.29 0.61 0.22l2.39 -0.96c0.5 0.38 1.03 0.7 1.62 0.94l0.36 2.54c0.05 0.24 0.24 0.41 0.48 0.41h3.84c0.24 0 0.44 -0.17 0.47 -0.41l0.36 -2.54c0.59 -0.24 1.13 -0.56 1.62 -0.94l2.39 0.96c0.22 0.08 0.47 0 0.59 -0.22l1.92 -3.32c0.12 -0.22 0.07 -0.47 -0.12 -0.61L19.14 12.94zM12 15.6c-1.98 0 -3.6 -1.62 -3.6 -3.6s1.62 -3.6 3.6 -3.6s3.6 1.62 3.6 3.6S13.98 15.6 12 15.6z" CommandParameter="settings" Click="Nav_OnClick" Checked="TopNav_OnChecked" />
+                            <ToggleButton x:Name="TopNavDiagnostics" Style="{StaticResource NavButton}" Content="诊断日志"
+                                          Tag="M3 3h12l3 3v12H3z M5 8h11v1.4H5z M5 11.5h11v1.4H5z M5 15h8v1.4H5z" CommandParameter="diagnostics" Click="Nav_OnClick" Checked="TopNav_OnChecked" />
+                        </StackPanel>
+                        <Border Grid.Column="1" Background="{DynamicResource Surface}" CornerRadius="10" Padding="10,4"
+                                BorderBrush="{DynamicResource Border}" BorderThickness="1" Margin="8,0,4,0"
+                                VerticalAlignment="Center">
+                            <StackPanel Orientation="Horizontal">
+                                <Ellipse x:Name="TopStatusDot" Width="8" Height="8" Fill="#4A5266" VerticalAlignment="Center" />
+                                <StackPanel Margin="7,0,0,0">
+                                    <TextBlock x:Name="TopStatusText" Text="未连接" FontSize="12" />
+                                    <TextBlock x:Name="TopStatusDevice" Text="等待手柄…" FontSize="10" Foreground="{DynamicResource TextMuted}"
+                                               TextTrimming="CharacterEllipsis" />
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <ContentControl x:Name="PageHost" Grid.Row="1" Margin="24,20,24,16" />
+            </Grid>
+        </Grid>
+
+        <!-- 状态栏 -->
+        <Border Grid.Row="2" Background="{DynamicResource Bg}" BorderBrush="{DynamicResource Border}" BorderThickness="0,1,0,0">
+            <Grid Margin="16,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock x:Name="StatusText" Text="就绪" Style="{StaticResource Muted}" FontSize="11" />
+                    <TextBlock Text="·" Style="{StaticResource Muted}" FontSize="11" Margin="8,0" />
+                    <TextBlock x:Name="StatusProfile" Text="默认配置" Style="{StaticResource Muted}" FontSize="11" />
+                </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

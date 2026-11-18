@@ -1,0 +1,193 @@
+<UserControl x:Class="LeadjoyBlade.App.Views.GamepadImePage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" d:DesignHeight="760" d:DesignWidth="960">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+            <TextBlock Text="手柄输入法" Style="{StaticResource H1}" Margin="0,0,0,6" />
+            <TextBlock Text="握着手柄也能打中文 —— 已融合「柄输 Binput 2.5.0」（原作者：莫古雨，GPL-3.0）。"
+                       Style="{StaticResource Muted}" TextWrapping="Wrap" Margin="0,0,0,18" />
+
+            <Border Style="{StaticResource Card}" Margin="0,0,0,14">
+                <StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Ellipse x:Name="StatusDot" Width="10" Height="10" Fill="#4A5266" VerticalAlignment="Center" />
+                            <TextBlock x:Name="StatusText" Text="未启用" FontSize="15" FontWeight="SemiBold"
+                                       Margin="10,0,0,0" VerticalAlignment="Center" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock x:Name="EnableLabel" Text="启用" Foreground="{DynamicResource TextMuted}"
+                                       VerticalAlignment="Center" Margin="0,0,10,0" />
+                            <ToggleButton x:Name="EnableSwitch" Style="{StaticResource Switch}"
+                                          Checked="EnableSwitch_OnChanged" Unchecked="EnableSwitch_OnChanged" />
+                        </StackPanel>
+                    </Grid>
+
+                    <Border Style="{StaticResource Divider}" />
+
+                    <TextBlock x:Name="ProfileText" Style="{StaticResource Muted}" FontSize="10"
+                               Margin="0,6,0,0" />
+
+                    <Grid Margin="0,4,0,2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackPanel>
+                            <TextBlock Text="手柄通道" Style="{StaticResource Muted}" FontSize="10" />
+                            <TextBlock x:Name="PadSourceText" Text="—" FontSize="12" Margin="0,4,8,0"
+                                       TextTrimming="CharacterEllipsis" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="1">
+                            <TextBlock Text="键盘布局" Style="{StaticResource Muted}" FontSize="10" />
+                            <TextBlock x:Name="LayoutText" Text="九键" FontSize="12" Margin="0,4,0,0" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Text="输入模式" Style="{StaticResource Muted}" FontSize="10" />
+                            <TextBlock x:Name="ModeText" Text="预输入版" FontSize="12" Margin="0,4,0,0" />
+                        </StackPanel>
+                        <StackPanel Grid.Column="3">
+                            <TextBlock Text="唤醒键" Style="{StaticResource Muted}" FontSize="10" />
+                            <TextBlock x:Name="WakeText" Text="L3 + R3" FontSize="12" Margin="0,4,0,0" />
+                        </StackPanel>
+                    </Grid>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,16,0,0">
+                        <Button x:Name="ShowKeyboardButton" Content="唤出键盘" Style="{StaticResource PrimaryButton}"
+                                Click="ShowKeyboard_OnClick" />
+                        <Button x:Name="HideKeyboardButton" Content="收起键盘" Style="{StaticResource BtnBase}"
+                                Margin="8,0,0,0" Click="HideKeyboard_OnClick" />
+                        <Button x:Name="OpenSettingsButton" Content="输入法设置" Style="{StaticResource BtnBase}"
+                                Margin="8,0,0,0" Click="OpenSettings_OnClick" />
+                        <Button x:Name="AdjustWindowButton" Content="调整键盘大小 / 位置" Style="{StaticResource GhostButton}"
+                                Margin="8,0,0,0" Click="AdjustWindow_OnClick" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource Card}" Margin="0,0,0,14">
+                <StackPanel>
+                    <TextBlock Text="输入设置" Style="{StaticResource H2}" Margin="0,0,0,12" />
+                    <Grid Margin="0,0,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="110" />
+                            <ColumnDefinition Width="240" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="输入模式" Foreground="{DynamicResource TextMuted}" VerticalAlignment="Center" />
+                        <ComboBox x:Name="ModeCombo" Grid.Column="1" SelectionChanged="ModeCombo_OnSelectionChanged">
+                            <ComboBoxItem Content="预输入版（推荐，先打再发）" />
+                            <ComboBoxItem Content="直出版（直接打进当前窗口）" />
+                        </ComboBox>
+                    </Grid>
+                    <Grid Margin="0,0,0,6">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="110" />
+                            <ColumnDefinition Width="240" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="唤醒键" Foreground="{DynamicResource TextMuted}" VerticalAlignment="Center" />
+                        <ComboBox x:Name="WakeCombo" Grid.Column="1" SelectionChanged="WakeCombo_OnSelectionChanged" />
+                    </Grid>
+                    <Grid Margin="0,6,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="110" />
+                            <ColumnDefinition Width="240" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="悬浮窗大小" Foreground="{DynamicResource TextMuted}" VerticalAlignment="Center" />
+                        <Slider x:Name="ScaleSlider" Grid.Column="1" Minimum="60" Maximum="180"
+                                Value="100" TickFrequency="1" IsSnapToTickEnabled="False"
+                                VerticalAlignment="Center" ValueChanged="ScaleSlider_OnValueChanged" />
+                        <TextBlock x:Name="ScaleText" Grid.Column="2" Text="100%" Foreground="{DynamicResource TextMuted}"
+                                   FontSize="11" VerticalAlignment="Center" Margin="8,0,0,0" />
+                    </Grid>
+                    <Grid Margin="0,6,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="110" />
+                            <ColumnDefinition Width="240" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="悬浮窗透明度" Foreground="{DynamicResource TextMuted}" VerticalAlignment="Center" />
+                        <Slider x:Name="OpacitySlider" Grid.Column="1" Minimum="20" Maximum="100"
+                                Value="100" TickFrequency="1" IsSnapToTickEnabled="False"
+                                VerticalAlignment="Center" ValueChanged="OpacitySlider_OnValueChanged" />
+                        <TextBlock x:Name="OpacityText" Grid.Column="2" Text="100%" Foreground="{DynamicResource TextMuted}"
+                                   FontSize="11" VerticalAlignment="Center" Margin="8,0,0,0" />
+                    </Grid>
+                    <TextBlock x:Name="WakeConflictText" Foreground="#E0A030" FontSize="10"
+                               TextWrapping="Wrap" Margin="110,8,0,0" Visibility="Collapsed" />
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource Card}" Margin="0,0,0,14">
+                <StackPanel>
+                    <TextBlock Text="手柄键位速查" Style="{StaticResource H2}" Margin="0,0,0,10" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="L3 + R3" FontWeight="SemiBold" Margin="0,4,0,4" />
+                        <TextBlock Grid.Column="1" Text="唤出 / 收起键盘（可在上面改成 Back / Start 或 F1~F12）"
+                                   Style="{StaticResource Muted}" TextWrapping="Wrap" Margin="0,4,0,4" />
+                        <TextBlock Grid.Row="1" Text="左摇杆" FontWeight="SemiBold" Margin="0,4,0,4" />
+                        <TextBlock Grid.Row="1" Grid.Column="1" Text="在九宫格 / 全键盘上选键"
+                                   Style="{StaticResource Muted}" TextWrapping="Wrap" Margin="0,4,0,4" />
+                        <TextBlock Grid.Row="2" Text="A" FontWeight="SemiBold" Margin="0,4,0,4" />
+                        <TextBlock Grid.Row="2" Grid.Column="1" Text="输入光标所在的键"
+                                   Style="{StaticResource Muted}" TextWrapping="Wrap" Margin="0,4,0,4" />
+                        <TextBlock Grid.Row="3" Text="X / RT / RB" FontWeight="SemiBold" Margin="0,4,0,4" />
+                        <TextBlock Grid.Row="3" Grid.Column="1" Text="X 退格、RT 回车；RB 发出拼音，没有待发拼音时是空格"
+                                   Style="{StaticResource Muted}" TextWrapping="Wrap" Margin="0,4,0,4" />
+                        <TextBlock Grid.Row="4" Text="Y" FontWeight="SemiBold" Margin="0,4,0,4" />
+                        <TextBlock Grid.Row="4" Grid.Column="1" Text="有拼音时只定住头一个字；没拼音时单击切九键 / 全键盘，长按进设置"
+                                   Style="{StaticResource Muted}" TextWrapping="Wrap" Margin="0,4,0,4" />
+                        <TextBlock Grid.Row="5" Text="十字键 ← →" FontWeight="SemiBold" Margin="0,4,0,4" />
+                        <TextBlock Grid.Row="5" Grid.Column="1" Text="挑拼音切分；发出拼音后就是方向键，↑ / ↓ 翻页"
+                                   Style="{StaticResource Muted}" TextWrapping="Wrap" Margin="0,4,0,4" />
+                        <TextBlock Grid.Row="6" Text="LT / LB" FontWeight="SemiBold" Margin="0,4,0,4" />
+                        <TextBlock Grid.Row="6" Grid.Column="1" Text="按住 LT 进数字层；按住 LB 推左摇杆是滑行输入"
+                                   Style="{StaticResource Muted}" TextWrapping="Wrap" Margin="0,4,0,4" />
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+            <Border Style="{StaticResource Card}">
+                <StackPanel>
+                    <TextBlock Text="数据与关于" Style="{StaticResource H2}" Margin="0,0,0,10" />
+                    <TextBlock x:Name="DataPathText" Style="{StaticResource Muted}" FontSize="11"
+                               TextWrapping="Wrap" Margin="0,0,0,8" />
+                    <TextBlock x:Name="DictionaryText" Style="{StaticResource Muted}" FontSize="11"
+                               TextWrapping="Wrap" Margin="0,0,0,10" />
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="打开数据目录" Style="{StaticResource BtnBase}" Click="OpenDataDir_OnClick" />
+                        <Button Content="打开日志" Style="{StaticResource BtnBase}" Margin="8,0,0,0" Click="OpenLog_OnClick" />
+                        <Button Content="关于输入法" Style="{StaticResource GhostButton}" Margin="8,0,0,0" Click="About_OnClick" />
+                    </StackPanel>
+                    <Border Style="{StaticResource Divider}" Margin="0,14,0,10" />
+                    <TextBlock Style="{StaticResource Muted}" FontSize="10" TextWrapping="Wrap"
+                               Text="柄输 Binput 2.5.0 · 原作者 莫古雨（https://github.com/moguyu-binput/Binput，GPL-3.0）。融合版仅做宿主与资源改造：对话框入口、托盘和进程生命周期交给风刃手柄助手；词库 / 皮肤 / 图标全部内嵌，DPAPI 改为系统 API 直调。输入法内保留原作者打赏通道，相关收益与本人无关。" />
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
