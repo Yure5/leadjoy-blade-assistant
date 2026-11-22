@@ -1,4 +1,4 @@
-﻿using LeadjoyBlade.Core.Input;
+using LeadjoyBlade.Core.Input;
 using System.Text.Json.Serialization;
 
 namespace LeadjoyBlade.Core.Mapping;
@@ -83,6 +83,18 @@ public sealed class FantasyProfile
 
     /// <summary>系统菜单的菜单栏与项目，保存在当前配置中。</summary>
     public List<SystemMenuCategory> SystemMenuCategories { get; set; } = SystemMenuDefaults.CreateCategories();
+
+    /// <summary>是否启用双十字热键栏切换音效。</summary>
+    public bool HotbarSoundEnabled { get; set; } = true;
+
+    /// <summary>双十字热键栏切换音效音量（0–100）。</summary>
+    public int HotbarSoundVolume { get; set; } = 100;
+
+    /// <summary>是否启用系统菜单呼出音效。</summary>
+    public bool MenuSoundEnabled { get; set; } = true;
+
+    /// <summary>系统菜单呼出音效音量（0–100）。</summary>
+    public int MenuSoundVolume { get; set; } = 100;
 
     public static List<FantasySet> CreateSets() =>
         Enumerable.Range(0, 8).Select(i => new FantasySet { Name = $"热键栏 {i + 1}" }).ToList();

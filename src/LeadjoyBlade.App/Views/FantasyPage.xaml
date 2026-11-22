@@ -196,6 +196,14 @@
                                 ValueChanged="OverlaySlider_OnChanged" VerticalAlignment="Center" />
                         <TextBlock x:Name="OverlayOpacityText" Text="90%" Style="{StaticResource Muted}" FontSize="10" Width="34" VerticalAlignment="Center" />
                     </WrapPanel>
+                    <WrapPanel Margin="0,8,0,0">
+                        <CheckBox x:Name="HotbarSoundCheck" Content="热键栏切换音效" Margin="0,0,14,0"
+                                  VerticalAlignment="Center" Click="SoundEnabled_OnChanged" />
+                        <TextBlock Text="音量" Foreground="{DynamicResource TextMuted}" FontSize="11" VerticalAlignment="Center" Margin="0,0,4,0" />
+                        <Slider x:Name="HotbarSoundVolumeSlider" Width="80" Minimum="0" Maximum="100" Value="100"
+                                ValueChanged="SoundVolume_OnChanged" VerticalAlignment="Center" />
+                        <TextBlock x:Name="HotbarSoundVolumeText" Text="100%" Style="{StaticResource Muted}" FontSize="10" Width="38" VerticalAlignment="Center" />
+                    </WrapPanel>
                 </StackPanel>
             </Border>
 
@@ -244,6 +252,14 @@
                             <ComboBoxItem Content="X" Tag="X" />
                             <ComboBoxItem Content="Y" Tag="Y" />
                         </ComboBox>
+                    </WrapPanel>
+                    <WrapPanel Margin="0,8,0,0">
+                        <CheckBox x:Name="MenuSoundCheck" Content="菜单呼出音效" Margin="0,0,14,0"
+                                  VerticalAlignment="Center" Click="SoundEnabled_OnChanged" />
+                        <TextBlock Text="音量" Foreground="{DynamicResource TextMuted}" FontSize="11" VerticalAlignment="Center" Margin="0,0,4,0" />
+                        <Slider x:Name="MenuSoundVolumeSlider" Width="80" Minimum="0" Maximum="100" Value="100"
+                                ValueChanged="SoundVolume_OnChanged" VerticalAlignment="Center" />
+                        <TextBlock x:Name="MenuSoundVolumeText" Text="100%" Style="{StaticResource Muted}" FontSize="10" Width="38" VerticalAlignment="Center" />
                     </WrapPanel>
                 </StackPanel>
             </Border>

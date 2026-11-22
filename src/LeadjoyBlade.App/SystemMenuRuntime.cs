@@ -242,6 +242,7 @@ public sealed class SystemMenuRuntime
         _gameWindow = GameWindowTarget.Capture(App.Current.Engine.Profile.ProcessName);
         _open = true;
         _justOpened = true;
+        SoundEffects.PlayMenuOpen(fantasy.MenuSoundEnabled ? fantasy.MenuSoundVolume : 0);
         _repeatDirection = -1;
         Array.Clear(_navDown);
         _confirmDown = false;

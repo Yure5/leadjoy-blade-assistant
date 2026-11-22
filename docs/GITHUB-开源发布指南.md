@@ -56,7 +56,7 @@ https://github.com/你的用户名/leadjoy-blade-assistant.git
 2. 打开后 **Sign in to GitHub.com**，浏览器授权；
 3. 菜单 **File → Add local repository**，选择 `leadjoy` 文件夹；
 4. 如果提示 “not a Git repository”，点 **create a repository**，名称随意，路径保持 `leadjoy`；
-5. 左下角填写提交信息（例如 `chore: 开源初始版本 V0.8.80`），点 **Commit to main**；
+5. 左下角填写提交信息（例如 `chore: 开源初始版本 V0.8.81`），点 **Commit to main**；
 6. 点顶部 **Publish repository**，取消勾选 “Keep this code private”，选择你的账号，发布。
 
 ### 方案 B：命令行
@@ -69,7 +69,7 @@ git init -b main
 git config user.name "你的名字"
 git config user.email "你的邮箱"
 git add -A
-git commit -m "chore: 开源初始版本 V0.8.80"
+git commit -m "chore: 开源初始版本 V0.8.81"
 git remote add origin https://github.com/你的用户名/leadjoy-blade-assistant.git
 git push -u origin main
 ```
@@ -89,10 +89,10 @@ git push -u origin main
 GitHub 仓库本身不适合放 80 MB 的 exe，用 **Releases** 提供下载：
 
 1. 进入仓库页面 → 右侧 **Releases → Create a new release**；
-2. **Choose a tag** 输入 `v0.8.80`，点 **Create new tag**；
-3. **Release title**：`V0.8.80`;
-4. 描述可以直接粘贴 `CHANGELOG.md` 里 V0.8.80 一段，再补一句安装说明；
-5. 把 `dist\风刃手柄助手-V0.8.80-win-x64.zip` 拖进 **Attach binaries**；
+2. **Choose a tag** 输入 `v0.8.81`，点 **Create new tag**；
+3. **Release title**：`V0.8.81`;
+4. 描述可以直接粘贴 `CHANGELOG.md` 里 V0.8.81 一段，再补一句安装说明；
+5. 把 `dist\风刃手柄助手-V0.8.81-win-x64.zip` 拖进 **Attach binaries**；
 6. 点 **Publish release**。
 
 README 里的 `[Releases](../../releases/latest)` 会自动指向最新版。
@@ -144,7 +144,7 @@ git push
 
 - [ ] 仓库是 Public，README 能正常显示图片与目录；
 - [ ] `LICENSE` 被 GitHub 识别为 GPL-3.0（仓库首页右侧显示）；
-- [ ] Release 里有 `风刃手柄助手-V0.8.80-win-x64.zip`；
+- [ ] Release 里有 `风刃手柄助手-V0.8.81-win-x64.zip`；
 - [ ] 仓库里没有 `settings.json`、`profiles/`、`logs/`、`HANDOFF*.md`；
 - [ ] README 里的下载链接、文档链接都能点开；
 - [ ] 在手机浏览器上打开一次 README，确认排版正常。

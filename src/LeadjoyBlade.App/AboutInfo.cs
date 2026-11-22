@@ -3,7 +3,7 @@ namespace LeadjoyBlade.App;
 /// <summary>关于信息编译进程序集，避免通过外部文件被随意修改。</summary>
 public static class AboutInfo
 {
-    public const string Version = "V0.8.80";
+    public const string Version = "V0.8.81";
 
     public const string Description =
         "专为动感指尖 / Leadjoy 风刃 Plus 开发。\n" +

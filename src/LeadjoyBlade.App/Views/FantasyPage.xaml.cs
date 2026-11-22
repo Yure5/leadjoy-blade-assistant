@@ -187,6 +187,14 @@ public partial class FantasyPage : UserControl
         SelectComboByTag(SystemMenuHotkeyCombo, fantasy.SystemMenuHotkey);
         SelectComboByTag(SystemMenuConfirmCombo, fantasy.SystemMenuConfirmButton);
         SelectComboByTag(SystemMenuCancelCombo, fantasy.SystemMenuCancelButton);
+        HotbarSoundCheck.IsChecked = fantasy.HotbarSoundEnabled;
+        MenuSoundCheck.IsChecked = fantasy.MenuSoundEnabled;
+        HotbarSoundVolumeSlider.Value = Math.Clamp(fantasy.HotbarSoundVolume, 0, 100);
+        MenuSoundVolumeSlider.Value = Math.Clamp(fantasy.MenuSoundVolume, 0, 100);
+        HotbarSoundVolumeSlider.IsEnabled = fantasy.HotbarSoundEnabled;
+        MenuSoundVolumeSlider.IsEnabled = fantasy.MenuSoundEnabled;
+        HotbarSoundVolumeText.Text = $"{HotbarSoundVolumeSlider.Value:0}%";
+        MenuSoundVolumeText.Text = $"{MenuSoundVolumeSlider.Value:0}%";
         _lastRenderedSet = -1;
         BuildBaseKeys();
         BuildSlots();
@@ -1603,6 +1611,24 @@ public partial class FantasyPage : UserControl
         OverlayOpacityText.Text = $"{OverlayOpacitySlider.Value * 100:0}%";
         Save();
         App.Current.Fantasy.ApplyOverlaySettings();
+    }
+
+    private void SoundEnabled_OnChanged(object sender, RoutedEventArgs e) => ApplySoundSettings();
+
+    private void SoundVolume_OnChanged(object sender, RoutedPropertyChangedEventArgs<double> e) => ApplySoundSettings();
+
+    private void ApplySoundSettings()
+    {
+        if (_loading || HotbarSoundVolumeText == null || MenuSoundVolumeText == null) return;
+        Fantasy.HotbarSoundEnabled = HotbarSoundCheck.IsChecked == true;
+        Fantasy.MenuSoundEnabled = MenuSoundCheck.IsChecked == true;
+        Fantasy.HotbarSoundVolume = (int)Math.Round(HotbarSoundVolumeSlider.Value);
+        Fantasy.MenuSoundVolume = (int)Math.Round(MenuSoundVolumeSlider.Value);
+        HotbarSoundVolumeSlider.IsEnabled = Fantasy.HotbarSoundEnabled;
+        MenuSoundVolumeSlider.IsEnabled = Fantasy.MenuSoundEnabled;
+        HotbarSoundVolumeText.Text = $"{Fantasy.HotbarSoundVolume}%";
+        MenuSoundVolumeText.Text = $"{Fantasy.MenuSoundVolume}%";
+        Save();
     }
 
     private void OverlayToggle_OnChanged(object sender, RoutedEventArgs e)

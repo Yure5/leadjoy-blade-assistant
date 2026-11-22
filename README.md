@@ -6,7 +6,7 @@
 
 **把 Leadjoy 风刃 Plus 变成你的专属键鼠、宏键盘和中文输入法**
 
-[![Version](https://img.shields.io/badge/version-V0.8.80-7C4DFF)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-V0.8.81-7C4DFF)](CHANGELOG.md)
 [![Platform](https://img.shields.io/badge/platform-Windows%2010%20%7C%2011%20x64-0078D6)](#系统要求)
 [![.NET](https://img.shields.io/badge/.NET-8-512BD4)](https://dotnet.microsoft.com/)
 [![License](https://img.shields.io/badge/license-GPL--3.0-blue)](LICENSE)
@@ -93,8 +93,8 @@ SELECT 呼出，方向键切换菜单栏与项目；键盘 / 手柄 / 鼠标点�
 
 1. 打开本仓库的 [Releases](../../releases/latest) 页面；
 2. 下载最新版，二选一：
-   - **`LeadjoyBlade-V0.8.80-win-x64-clean.zip`**：初始空配置，无按键映射、无组合键、无宏 / 幻想库预设；
-   - **`LeadjoyBlade-V0.8.80-win-x64-sample.zip`**：含示例配置（以《冒险岛》NewMaple 神射手为参考，供配置参考）；
+   - **`LeadjoyBlade-V0.8.81-win-x64-clean.zip`**：初始空配置，无按键映射、无组合键、无宏 / 幻想库预设；
+   - **`LeadjoyBlade-V0.8.81-win-x64-sample.zip`**：含示例配置（以《冒险岛》NewMaple 神射手为参考，供配置参考）；
 3. 解压到任意可写目录（不要放在 `C:\Program Files` 等需要管理员权限的目录，否则配置会写到 `%AppData%`）；
 4. 双击 `LeadjoyBlade.exe`。
 

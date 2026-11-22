@@ -1,6 +1,6 @@
 # 手柄输入法（柄输 Binput 融合版）
 
-> 适用于 V0.8.80 及以后。入口：工作台 →「手柄输入法」。
+> 适用于 V0.8.81 及以后。入口：工作台 →「手柄输入法」。
 >
 > 原作：莫古雨 · [Binput](https://github.com/moguyu-binput/Binput) 2.5.0 · GPL-3.0。
 > 本程序在 GPL-3.0 下分发，源码随项目提供（`src\LeadjoyBlade.Binput\`）。

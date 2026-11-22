@@ -1,7 +1,7 @@
 ﻿# 生成 GitHub Release 用的两个便携包：clean（无配置）与 sample（示例配置）
-# 用法： powershell -ExecutionPolicy Bypass -File scripts\make-release-packages.ps1 -Version 0.8.80
+# 用法： powershell -ExecutionPolicy Bypass -File scripts\make-release-packages.ps1 -Version 0.8.81
 param(
-    [string]$Version = "0.8.80",
+    [string]$Version = "0.8.81",
     [string]$Root = (Split-Path -Parent $PSScriptRoot),
     [string]$SampleSource = "C:\Users\Administrator\Desktop\风刃手柄助手"
 )

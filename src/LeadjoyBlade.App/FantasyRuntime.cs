@@ -243,6 +243,7 @@ public sealed class FantasyRuntime
                     var direct = DirectSetIndex(newMask);
                     if (direct >= 0)
                     {
+                        if (direct != _setIndex) SoundEffects.PlayHotbarSwitch(fantasy.HotbarSoundEnabled ? fantasy.HotbarSoundVolume : 0);
                         _setIndex = direct;
                         _rbUsed = true;
                     }
@@ -254,7 +255,14 @@ public sealed class FantasyRuntime
                 _rbDown = false;
                 if (!_rbUsed && !_rbR3Used && !_selecting
                     && (DateTime.UtcNow - _rbDownAt).TotalMilliseconds <= 180)
-                    _setIndex = NextVisibleSet(fantasy, _setIndex);
+                {
+                    var next = NextVisibleSet(fantasy, _setIndex);
+                    if (next != _setIndex)
+                    {
+                        _setIndex = next;
+                        SoundEffects.PlayHotbarSwitch(fantasy.HotbarSoundEnabled ? fantasy.HotbarSoundVolume : 0);
+                    }
+                }
                 _rbUsed = false;
                 _rbR3Used = false;
                 _selecting = false;

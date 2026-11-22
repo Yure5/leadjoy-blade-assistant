@@ -15,7 +15,7 @@
     <RootNamespace>LeadjoyBlade.App</RootNamespace>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon>Assets\app_icon.ico</ApplicationIcon>
-    <Version>0.8.80</Version>
+    <Version>0.8.81</Version>
     <Product>风刃手柄助手</Product>
     <AssemblyTitle>风刃手柄助手</AssemblyTitle>
     <Company>Leadjoy Blade</Company>
@@ -34,6 +34,7 @@
 
   <ItemGroup>
     <Resource Include="Assets\*.png" />
+    <Resource Include="Assets\*.wav" />
   </ItemGroup>
 
 </Project>
